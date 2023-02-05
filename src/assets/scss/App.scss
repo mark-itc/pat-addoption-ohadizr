@@ -1,0 +1,37 @@
+*{
+  margin: 0;
+  border: 0;
+  padding: 0;
+  
+}
+
+body{
+  width: 100vw;
+  background-color: #F4F0EA;
+  height: 140vh;
+}
+
+
+.appBody{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #F4F0EA;
+  z-index: 10;
+  position: relative;
+}
+
+.appFooter{
+  width: 100vw;
+  height: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: #F4F0EA; */
+  z-index: 3;
+  position: relative;
+}
