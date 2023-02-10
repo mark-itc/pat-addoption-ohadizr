@@ -18,20 +18,12 @@ export default function LowerNavPhone() {
           <button className="nakedButton" onClick={() => navigate("/adopt")}>
             ADOPT
           </button>
-          <button className="nakedButton" onClick={() => navigate("/about")}>
-            ABOUT
+          <button className="nakedButton" onClick={() => navigate("/OurMission")}>
+          Our Mission
           </button>
-          <button
-            className="nakedButton"
-            onClick={() => navigate("/community")}
-          >
-            COMMUNITY
-          </button>
+
           <button className="nakedButton" onClick={() => navigate("/contact")}>
             CONTACT
-          </button>
-          <button className="nakedButton" onClick={() => navigate("/support")}>
-            SUPPORT
           </button>
         </div>
       </Dropdown.Menu>

@@ -30,7 +30,7 @@ export default function Home() {
     return {display}
   };
   
-
+//https://react-bootstrap.netlify.app/components/accordion/
   
     
 
