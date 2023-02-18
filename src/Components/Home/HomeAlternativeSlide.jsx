@@ -4,6 +4,7 @@ import Donate from "../../assets/Photos/Donate.jpg";
 import Foster from "../../assets/Photos/Foster.jpg";
 function HomeAlternativeSlide() {
   return (
+    <div className='slideCarouselContainer'>
     <Carousel slide={false}>
 
       <Carousel.Item>
@@ -63,6 +64,7 @@ function HomeAlternativeSlide() {
           
       </Carousel.Item>
     </Carousel>
+    </div>
   );
 }
 
