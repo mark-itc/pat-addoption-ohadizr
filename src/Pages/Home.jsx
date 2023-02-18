@@ -7,8 +7,6 @@ import { useState, useEffect } from 'react';
 // import { Carousel } from "react-bootstrap";
 export default function Home() {
 
-
-
   const ScreenSize = () => {
     const [display, setDisplay] = useState('x');
   
@@ -32,8 +30,6 @@ export default function Home() {
   
 //https://react-bootstrap.netlify.app/components/accordion/
   
-    
-
 
   return (
     <div className="homeContainer">
