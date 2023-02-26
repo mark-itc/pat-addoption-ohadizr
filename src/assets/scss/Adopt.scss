@@ -1,39 +1,84 @@
 .adoptContainer{
     display: grid;
+    margin-top: 3rem;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: 0.2fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
-    width: 100vw;
-    padding-top: 20vh;
+    width: 95vw;
 }
 .adoptHeader{
     grid-area: 1 / 1 / 2 / 6;
     text-align: center;
     font-size: 2.5em;
     font-weight: 600;
+    ;
 }
 .sideNav{
     grid-area: 2 / 1 / 6 / 2;
 }
 .petsContainer{
+    // border: 5px solid red;
+    padding: 1%;
     grid-area: 2 / 2 / 6 / 6;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
+    display: flex;
+    flex-direction: column;
+    width: 98%;
+}
+
+//card style
+
+.dogProfileCard{
+    border: 2px solid white;
+    width: 28%;
+    height: 90%;
+    background-color: rgba(139, 174, 130, 0.5);
+    padding: 1%;
+}
+
+.topInfo{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    gap: 2rem;
+}
+.cardStatus{
+    color: rgba(75, 135, 125, 1);
+}
+.cardType{
+    color:rgba(255, 141, 49, 1);
+}
+.dogProfilePicture{
+width: 15rem;
+height: 15rem;
+padding: 5%;
+}
+.petInfo{
+    // height: 20%;
+}
+.profileButton{
+    width: 50%;
+    height: 100%;
+    color: white;
+    font-size: 1.5em;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+//popup style
+.PopUp{
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+
 }
-// .parent {
-//     display: grid;
-//     grid-template-columns: repeat(5, 1fr);
-//     grid-template-rows: repeat(5, 1fr);
-//     grid-column-gap: 0px;
-//     grid-row-gap: 0px;
-//     }
-    
-//     .div1 { grid-area: 1 / 1 / 2 / 6; }
-//     .div2 { grid-area: 2 / 1 / 6 / 2; }
-//     .div3 { grid-area: 2 / 2 / 6 / 6; }

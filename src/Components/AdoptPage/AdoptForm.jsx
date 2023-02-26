@@ -17,12 +17,16 @@ export default function AdoptForm() {
           <h5>Adoption Status</h5>
           <Form.Check
             reverse
-            label="Adopt"
+            label="Adopted"
   
           />
           <Form.Check
             reverse
             label="Available"
+          />
+                    <Form.Check
+            reverse
+            label="Foster"
           />
           <h5>Adoption Status</h5>
           <Form.Check
@@ -33,6 +37,10 @@ export default function AdoptForm() {
           <Form.Check
             reverse
             label="Cat"
+          />
+                    <Form.Check
+            reverse
+            label="Other"
           />
 
           {/* <Form.Select aria-label="Default select example">
@@ -51,7 +59,7 @@ export default function AdoptForm() {
             <option value="7">more then 60cm</option>
           </Form.Select>
           <Form.Select aria-label="Default select example">
-            <option>Heights</option>
+            <option>Weight</option>
             <option value="1">2kg-4kg</option>          
             <option value="2">2kg-4kg</option>
             <option value="3">4kg-6kg</option>
