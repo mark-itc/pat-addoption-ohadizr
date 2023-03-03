@@ -1,1 +1,49 @@
-get http://localhost:8000
+
+get http://localhost:8000/users
+
+###
+
+post http://localhost:8000/signUp
+Content-Type: application/json
+Accept: application/json
+
+  {
+    "email": "test6@gmail.com",
+    "password": "122345567dasdadasda82312",
+    "password_validate": "122345567dasda82312",
+    "f_name": "test6-normal user",
+    "l_name": "test6",
+    "phone_num": "050-1111111",
+    "bio": "???"
+  }
+  //
+
+
+###
+
+post http://localhost:8000/login
+Content-Type: application/json
+
+  {
+    "email": "tes54@gmail.com",
+    "password": "122345567dasda82312"
+  }
+ 
+###
+get http://localhost:8000/user/63ff7e50d1f3efdf2770f526
+# Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlczU0QGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiNjVhYzRjNGI1Mjc5Nzg5MTcxYTU2MTY5NDk1ZDQzZmIwN2IzZTcyN2M5YzlkZDk3ZjBhMjgwNDVmNzFkZGI0YSIsImlhdCI6MTY3Nzc4MTEyOH0.uixU15B-qx091ltKiTk2XECG2ZoagyEv1xHEN1P3djI
+
+###
+get http://localhost:8000/users
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlczU0QGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiNjVhYzRjNGI1Mjc5Nzg5MTcxYTU2MTY5NDk1ZDQzZmIwN2IzZTcyN2M5YzlkZDk3ZjBhMjgwNDVmNzFkZGI0YSIsImlhdCI6MTY3Nzc4MjUzN30.k-q3reBpJY_brY1fivlHWOwRGYCUFSmetKmZjk73enk
+###
+put http://localhost:8000/user/63ff7e50d1f3efdf2770f526 
+Content-Type: application/json
+
+{
+    "email": "test4test@gmail.com",
+     "password": "12234556782312",
+     "f_name": "test4",
+      "l_name": "test4"
+}
+###

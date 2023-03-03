@@ -52,7 +52,6 @@ function App() {
         <Route path="adopt" element={ <Adopt/>} />
         <Route path="singup" element={ <Signup/>} />
       </Route>
-     
       </Routes>
   </div>
   
