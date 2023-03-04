@@ -2,10 +2,10 @@ const { ObjectId } = require("mongodb");
 
 let collection;
 
+
 module.exports = class UsersDAO {
   static async injectDB(connection) {
     if (!connection) return;
-
     try {
       collection = await connection.collection("users");
     } catch (e) {
@@ -19,7 +19,7 @@ module.exports = class UsersDAO {
     await collection.insertOne({ ...userData });
   }
 
-  static async getUserByUsername(f_name) {
+  static async getUserByUsername(updatedUser) {
     return await collection.findOne({ updatedUser });
   }
 
@@ -31,13 +31,15 @@ module.exports = class UsersDAO {
            f_name: updatedValues.f_name ,
            l_name: updatedValues.l_name ,
            email: updatedValues.email,
-           password: updatedValues.password 
+           password: updatedValues.password,
+           id: updatedValues.id,
+
       }
       }
     );
   }
-  static async getUserById(userId) {
-    return await collection.findOne({ _id: new ObjectId(userId) });
+  static async getUserById(_id) {
+    return await collection.findOne({ _id: new ObjectId(_id) });
   }
 
   static async getUserByEmail(email) {
@@ -47,5 +49,3 @@ module.exports = class UsersDAO {
     return await collection.find({}).toArray();
   }
 };
-
-// await collection.updateOne({ _id: new ObjectId(userId) }, { $set: { user } })

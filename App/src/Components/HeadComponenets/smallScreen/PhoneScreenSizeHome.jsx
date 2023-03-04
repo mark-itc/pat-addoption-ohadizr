@@ -1,7 +1,7 @@
 import React from 'react'
-import TopMessage from './TopMessage'
+import TopMessage from '../topmessage/TopMessage'
 import LowerNavPhone from './LowerNavPhone'
-import logo from '../../assets/Photos/onlydoglogo.png'
+import logo from '../../../assets/Photos/onlydoglogo.png'
 
 export default function PhoneScreenSizeHome() {
   return (

@@ -10,23 +10,24 @@ module.exports.AuthMiddleware = async function AuthMiddleware(req, res, next) {
             return res.status(401).send(); 
         }
 
-        token = token.replace('Bearer ', '');
-        console.log({token});
+        const justToken = token.slice(7);
 
-        const tokenData = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-        console.log({tokenData});
+
+        const tokenData = jwt.verify(justToken, process.env.ACCESS_TOKEN_SECRET)
+  
         if (!tokenData) {
             console.log('Token data not found')
             return res.status(401).send();
         }
-
-        const userData = await UsersDAO.getUserById(tokenData.user_id);
+        // console.log(tokenData.user_id);
+        const userData = await UsersDAO.getUserByEmail(tokenData.email);
         if (!userData) {
             console.log('User data not found')
             return res.status(401).send();
         }
 
         req.currentUser = userData;
+        console.log('User data found');
         next();
     } catch (e) {
         // console.log(e);

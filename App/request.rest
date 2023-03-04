@@ -1,4 +1,21 @@
+
 get http://localhost:8000/pets
 
 ###
 get http://localhost:8000/users
+
+
+###
+post http://localhost:8000/signUp
+Content-Type: application/json
+Accept: application/json
+
+  {
+    "email": "test7@gmail.com",
+    "password": "122345567dasdadasda82312",
+    "password_validate": "122345567dasda82312",
+    "f_name": "test6-normal user",
+    "l_name": "test6",
+    "phone_num": "050-1111111",
+    "bio": "???"
+  }

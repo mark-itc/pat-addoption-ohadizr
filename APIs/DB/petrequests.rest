@@ -1,4 +1,7 @@
 
+get http://localhost:8000/pets
+
+###
 post http://localhost:8000/pet
 Content-Type: application/json
 Accept: application/json
@@ -18,39 +21,33 @@ Accept: application/json
     "dietary_restrictions": "no fish"
   }
 
-
-//{
-  # "_id": {
-  #   "$oid": "63f9f2e34181f659580fe8ec"
-  # },
-  # "type": "Dog",
-  # "name": "Shadow",
-  # "adoption_Status": "Available",
-  # "picutre": "",
-  # "height": "40cm",
-  # "weight": "2.5 kg",
-  # "color": "off white",
-  # "bio": "Male",
-  # "age": 9,
-  # "Hypoallergenic": false,
-  # "dietary_restrictions": "no fish",
-  # "breed": "golden",
-  # "img": "https://images.squarespace-cdn.com/content/5c52811f1137a633536d811e/1588448958214-MUJZVHNJ7FXYLPXHSMWO/Homeward+Bound+Shadow.jpg?format=1500w&content-type=image%2Fjpeg",
-  # "join_date": {
-  #   "$timestamp": {
-  #     "t": 1677325859,
-  #     "i": 1
-  #   }
-  # },
-
-
+###
+get http://localhost:8000/pets
 ###
 get http://localhost:8000/pet/63f9f711b2ac0c536433a982
 Content-Type: application/json
 ###
-put http://localhost:8000/pet/ :id
+put http://localhost:8000/pet/63f9f711b2ac0c536433a982
+Content-Type: application/json
+
+{
+  "name": "Chance",
+  "type": "Dog",
+  "breed": "American Bulldog",
+  "age": 4,
+  "adoption_Status": "Available",
+  "height": "40cm",
+  "color": "off white",
+  "bio": "bio"
+}
+
 ###
 get http://localhost:8000/pet
+Content-Type: application/json
+
+{
+  "adoption_Status": "Available"
+}
 ###
 post http://localhost:8000/pet/ :id/adopt
 ###

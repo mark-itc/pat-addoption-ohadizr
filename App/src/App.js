@@ -1,16 +1,20 @@
 import './assets/scss/App.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from './layouts/Footer'
-import HeaderSigned from './layouts/HeaderSigned'
+import Header from './layouts/Header'
 import Home from './Pages/Home'
 import Contact from './Pages/Contact'
 import { Routes, Route, } from "react-router-dom";
 import OurMission from './Pages/OurMission';
 import Adopt from './Pages/Adopt';
 import Signup from './Pages/Signup';
-import { useState, useEffect } from 'react';
-import HeaderUnSigned from './layouts/HeaderUnSigned';
+import Profile from './Pages/Profile';
+import Register from './Pages/Register';
+import Login from './Pages/Login';
+import { useState, useEffect, useContext } from 'react';
+import { AuthContext } from './AuthContextProvider';
 function App() {
+  const { userData } = useContext(AuthContext);
 
 
 //console log "all the way button" when the user scrolls to the bottom of the page
@@ -18,8 +22,6 @@ function App() {
   useEffect(() => {
     const handleScroll = () => {
       const bottom =
-
-
         Math.ceil(window.innerHeight + window.scrollY) >= 
         document.documentElement.scrollHeight;
       if (bottom) {
@@ -40,17 +42,28 @@ function App() {
   <>
   <div className='appContainer'>
   <div className='headerApp'>
-  {/* <HeaderSigned/>  */}
-  <HeaderUnSigned/> 
+
+  <Header/> 
   </div>
 <div className='bodyApp'>
    <Routes>
-      <Route path=""   >
+      <Route path="" >
+
         <Route path="" element={ <Home/>} />
         <Route path="contact" element={ <Contact/>} />
         <Route path="ourmission" element={ <OurMission/>} />
         <Route path="adopt" element={ <Adopt/>} />
         <Route path="singup" element={ <Signup/>} />
+        {userData ? 
+          <Route path="profile" element={ <Profile/>} />
+         : 
+        <>
+        <Route path="register" element={<Register/>} />
+        <Route path="login" element={<Login/>} />
+        </>
+        }
+
+
       </Route>
       </Routes>
   </div>

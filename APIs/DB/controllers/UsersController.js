@@ -2,7 +2,7 @@ const sha256 = require('js-sha256');
 const jwt = require('jsonwebtoken');
 const UsersDAO = require('../models/UsersDAO');
 const { RegisterValidation, LoginValidation } = require('../validations/UsersValidations');
-
+const { ObjectId } = require("mongodb");
 module.exports = class UsersController {
 
     static async SignUp(req, res) {
@@ -18,7 +18,7 @@ module.exports = class UsersController {
 
             const userObject = req.body;
  
-            const existingUser = await UsersDAO.getUserByUsername(userObject.f_name);
+            const existingUser = await UsersDAO.getUserByEmail(userObject.email);
             if (existingUser) {
                 return res.status(400).json({
                     success: false,
@@ -40,11 +40,10 @@ module.exports = class UsersController {
             });
         }
     }
+    
 
     static async Login(req, res) {
         try {
-
-            // console.log("test");
             const validRequest = LoginValidation(req.body)
 
             if (!validRequest) {
@@ -71,7 +70,12 @@ module.exports = class UsersController {
             console.log(accessToken);
             console.log(user);
             return res.json({
-                token: accessToken
+                token: accessToken,
+                user: {
+
+                    _id: new ObjectId(user._id)
+                }
+
             })
 
         } catch (e) {
@@ -93,6 +97,7 @@ module.exports = class UsersController {
             f_name: user.f_name,
             l_name: user.l_name,
             email: user.email,
+            
           });
         } else {
             res.status(404).send("User not found");
@@ -144,8 +149,7 @@ module.exports = class UsersController {
                     updatedList.push("password")
                 }
                 
-               const updatedUser= await UsersDAO.updateUser("63ff7e50d1f3efdf2770f526", user);
-                console.log(user);
+               await UsersDAO.createUser("63ff7e50d1f3efdf2770f526", user);
                res.json({
                     success: true,
                     message: "user updated successfully , new values for " + updatedList.join

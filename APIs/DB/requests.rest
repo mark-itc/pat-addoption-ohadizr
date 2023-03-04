@@ -8,7 +8,7 @@ Content-Type: application/json
 Accept: application/json
 
   {
-    "email": "test6@gmail.com",
+    "email": "test8@gmail.com",
     "password": "122345567dasdadasda82312",
     "password_validate": "122345567dasda82312",
     "f_name": "test6-normal user",
@@ -16,7 +16,6 @@ Accept: application/json
     "phone_num": "050-1111111",
     "bio": "???"
   }
-  //
 
 
 ###
@@ -25,19 +24,21 @@ post http://localhost:8000/login
 Content-Type: application/json
 
   {
-    "email": "tes54@gmail.com",
-    "password": "122345567dasda82312"
+    "email": "a@a.com",
+    "password": "1234"
   }
  
 ###
-get http://localhost:8000/user/63ff7e50d1f3efdf2770f526
-# Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlczU0QGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiNjVhYzRjNGI1Mjc5Nzg5MTcxYTU2MTY5NDk1ZDQzZmIwN2IzZTcyN2M5YzlkZDk3ZjBhMjgwNDVmNzFkZGI0YSIsImlhdCI6MTY3Nzc4MTEyOH0.uixU15B-qx091ltKiTk2XECG2ZoagyEv1xHEN1P3djI
+get http://localhost:8000/user/64033c73b374207b7e32f7ac
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYS5jb20iLCJwYXNzd29yZCI6IjAzYWM2NzQyMTZmM2UxNWM3NjFlZTFhNWUyNTVmMDY3OTUzNjIzYzhiMzg4YjQ0NTllMTNmOTc4ZDdjODQ2ZjQiLCJpYXQiOjE2Nzc5NTA5MjR9.8_dhIiOsSvD3ixouuflF-x-ly8t6lhOX3Yy6-mapEU0
+
+
 
 ###
 get http://localhost:8000/users
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlczU0QGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiNjVhYzRjNGI1Mjc5Nzg5MTcxYTU2MTY5NDk1ZDQzZmIwN2IzZTcyN2M5YzlkZDk3ZjBhMjgwNDVmNzFkZGI0YSIsImlhdCI6MTY3Nzc4MjUzN30.k-q3reBpJY_brY1fivlHWOwRGYCUFSmetKmZjk73enk
 ###
-put http://localhost:8000/user/63ff7e50d1f3efdf2770f526 
+put http://localhost:8000/user/64032fe3464089a2e1a22b16 
 Content-Type: application/json
 
 {
@@ -47,3 +48,5 @@ Content-Type: application/json
       "l_name": "test4"
 }
 ###
+# get http://localhost:8000/userByEmail/a@a.com'
+# Content-Type: application/json

@@ -4,7 +4,7 @@ import { Between, Line, Rows,around } from "../../assets/UiKit/Line/Line";
 import { Grid } from "../../assets/UiKit/grid/Gird";
 import PopUpCardSearch from "./PopUpCardSearch";
 export default function PetCardSearch(props) {
-  // const { pet } = props;
+
 
   const [showPopUp, setShowPopUp] = useState(false);
 

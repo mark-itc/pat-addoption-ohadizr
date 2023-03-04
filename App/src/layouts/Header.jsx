@@ -2,9 +2,9 @@ import React from 'react'
 
 import '../assets/scss/Head.scss'
 import { useState, useEffect } from 'react';
-import LargeScreeHead from '../Components/HeadComponenets/LargeScreeHead'
-import PhoneScreenSizeHome from '../Components/HeadComponenets/PhoneScreenSizeHome';
-export default function HeaderUnSigned() {
+import LargeScreeHead from '../Components/HeadComponenets/largeScreen/LargeScreeHead'
+import PhoneScreenSizeHome from '../Components/HeadComponenets/smallScreen/PhoneScreenSizeHome';
+export default function Head() {
 
   const ScreenSize = () => {
     const [display, setDisplay] = useState('x');
