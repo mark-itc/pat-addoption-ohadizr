@@ -1,43 +1,35 @@
 import React from "react";
 import { useState } from "react";
-import { Between, Line, Rows,around } from "../../assets/UiKit/Line/Line";
+import { Between, Line, Rows, around } from "../../assets/UiKit/Line/Line";
 import { Grid } from "../../assets/UiKit/grid/Gird";
 import PopUpCardSearch from "./PopUpCardSearch";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
 export default function PetCardSearch(props) {
-
-
   const [showPopUp, setShowPopUp] = useState(false);
 
 
-
   return (
-    <div className="dogProfileCard">
-      <Grid>
+    
+    <Card style={{ width: "20rem" ,height: "30rem", backgroundColor: "#8BAE82"}}>
+         <Line addClass="around">
+           <img className="dogProfilePicture" src={props.pet.picture} />
+         </Line>
+      <Card.Body>
+        <Card.Title>{props.pet.name}</Card.Title>
         <Line addClass="between">
-          <h5 className="cardStatus">{props.pet.adoption_Status}</h5>
-          <h3>{props.pet.name}</h3>
-          <h5 className="cardType"> {props.pet.type}</h5>
-        </Line>
-        <Line addClass="around">
-          <img className="dogProfilePicture" src={props.pet.img} />
-        </Line>
-        <Line addClass="between">
-
-            <h5>{props.pet.breed}</h5>
+          <h5>{props.pet.breed}</h5>
           <Rows addClass="between">
             <h6>Bio:{props.pet.bio}</h6>
             <h6>Age:{props.pet.age}</h6>
           </Rows>
         </Line>
-        <Line addClass="around">
-        <button className="standardButton profileButton"
-            onClick={() => setShowPopUp(true)}
-        >Adopt</button>
+        <Card.Text>
+          {props.pet.adoption_status}
+        </Card.Text>
 
-        </Line>
-
-      </Grid>
-      { showPopUp? <PopUpCardSearch />: null}
-    </div>
+        <Button variant="primary">Go somewhere</Button>
+      </Card.Body>
+    </Card>
   );
 }

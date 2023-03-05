@@ -46,7 +46,7 @@ get http://localhost:8000/pet
 Content-Type: application/json
 
 {
-  "adoption_Status": "Available"
+"type": "dog"
 }
 ###
 post http://localhost:8000/pet/ :id/adopt

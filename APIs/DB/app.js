@@ -6,7 +6,6 @@ const PetsController = require('./controllers/PetsController');
 const {MongoClient} = require('mongodb');
 const client= new MongoClient('mongodb://localhost:27017');
 const { AuthMiddleware } = require('./middlewares/AuthMiddleware');
-//fix cors issue for http://localhost:3001
 const cors = require('cors');
 
 
@@ -46,29 +45,31 @@ app.get ('/users', UsersController.GetAllUsers) //admin protection
 
 app.put('/user/:id', UsersController.UpdateUser)
 
+app.get('/user/:id/full', UsersController.GetUserFull)
+
 
 //pets Api
 
 app.get('/pets', PetsController.GetAllPets)
 
-app.post('/pet', PetsController.CreateNewPet) //(Protected to admin only)
+app.post('/addPet', PetsController.CreateNewPet) //(Protected to admin only)
 // app.post('/pets', AuthMiddleware, PetsController.CreatePets)
 
 app.get('/pet/:id', PetsController.GetPetById)
 
 app.put('/pet/:id', PetsController.UpdatePet)
 
-app.get('/pet', PetsController.GetFilteredPets)
+app.post('/pet', PetsController.GetFilteredPets)
 
-// app.post('/pet/:id/adopt', PetsController.AdoptPet) //user protected
+app.post('/pet/:id/adopt',AuthMiddleware, PetsController.AdoptPet) //user protected
 
-// app.post('/pet/:id/return', PetsController.ReturnPet) //user protected
+app.post('/pet/:id/return',AuthMiddleware, PetsController.ReturnPet) //user protected
 
-// app.post('/pet/:id/save', PetsController.SavePet) //user protected
+app.post('/pet/:id/save',AuthMiddleware, PetsController.SavePet) //user protected
 
-// app.delete('/pet/:id/save',PetsController.DeleteSavedPet) //user protected
+app.delete('/pet/:id/save',AuthMiddleware,PetsController.DeleteSavedPet) //user protected
 
-// app.get('/pet/user/:id', PetsController.GetPetOwner) 
+app.get('/pet/user/:id', PetsController.GetPetOwner) 
 
 app.listen(port, async () => {
     console.log(`Server is running on port ${port}`)

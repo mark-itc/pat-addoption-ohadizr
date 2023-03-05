@@ -1,127 +1,159 @@
-import React from 'react'
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-export default function AdoptForm() {
+import React from "react";
+import { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import DoubleRangeSlider from "../../assets/UiKit/premade_componenets/DoubleRangeSlider/DoubleRangeSlider";
+import Offcanvas from "react-bootstrap/Offcanvas";
+export default function AdoptForm(props) {
+  const [adoption_status, setAdoptionStatus] = useState(null);
+  const [adopt, setAdopt] = useState(null);
+  const [available, setAvailable] = useState(null);
+  const [foster, setFoster] = useState(null);
 
-  const [ value1, setValue1 ] = React.useState(25);
-  const [ value2, setValue2 ] = React.useState(75);
+  const [type, setType] = useState(null);
+  const [dog, setDog] = useState(null);
+  const [cat, setCat] = useState(null);
+  const [other, setOther] = useState(null);
+
+  const [height, setHeight] = useState(null);
+  const [weight, setWeight] = useState(null);
+  const [age, setAge] = useState(null);
+
+  //calback to parent
+  setTimeout(() => {
+    // props.onData(adoption_status, type, height, weight, age)
+    props.onData([adoption_status, type]);
+  }, 50000);
+
+  //side bar
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  //form functions
+
+  const handleAdoptStatus = (e) => {
+    if (e.target.checked) {
+      setAdopt(e.target.value);
+    } else {
+      setAdopt(null);
+    }
+  };
+  const handleAvailableStatus = (e) => {
+    if (e.target.checked) {
+      setAvailable(e.target.value);
+    } else {
+      setAvailable(null);
+    }
+  };
+  const handleFosterStatus = (e) => {
+    if (e.target.checked) {
+      setFoster(e.target.value);
+    } else {
+      setFoster(null);
+    }
+  };
+  useEffect(() => {
+    setAdoptionStatus(
+      [adopt, available, foster].filter((item) => item !== null)
+    );
+  }, [adopt, available, foster]);
+
+  //type
+  const handleDog = (e) => {
+    if (e.target.checked) {
+      setDog(e.target.value);
+    } else {
+      setDog(null);
+    }
+  };
+  const handleCat = (e) => {
+    if (e.target.checked) {
+      setCat(e.target.value);
+    } else {
+      setCat(null);
+    }
+  };
+
+  const handleOther = (e) => {
+    if (e.target.checked) {
+      setOther(e.target.value);
+    } else {
+      setOther(null);
+    }
+  };
+
+  useEffect(() => {
+    setType([dog, cat, other].filter((item) => item !== null));
+  }, [dog, cat, other]);
+
   return (
-    <div>
-              <Form>
-          {/* <fieldset disabled> */}
-          {/* <Form.Select aria-label="Default select example">
-            <option>Adoption Status</option>
-            <option value="1">Adopt</option>
-            <option value="2">Available</option>
-          </Form.Select> */}
-          <h5>Adoption Status</h5>
-          <Form.Check
-            reverse
-            label="Adopted"
-  
-          />
-          <Form.Check
-            reverse
-            label="Available"
-          />
-                    <Form.Check
-            reverse
-            label="Foster"
-          />
-          <h5>Adoption Status</h5>
-          <Form.Check
-            reverse
-            label="Dog"
-  
-          />
-          <Form.Check
-            reverse
-            label="Cat"
-          />
-                    <Form.Check
-            reverse
-            label="Other"
-          />
+    <>
+      <Button variant="success" onClick={handleShow}>
+        Search
+      </Button>
 
-          {/* <Form.Select aria-label="Default select example">
-            <option>Type</option>
-            <option value="1">Dog</option>
-            <option value="2">Cat</option>
-          </Form.Select> */}
-          <Form.Select aria-label="Default select example">
-            <option>Heights</option>
-            <option value="1">less then 10cm</option>
-            <option value="2">10cm-20cm</option>
-            <option value="3">20cm-30cm</option>
-            <option value="4">30cm-40cm</option>
-            <option value="5">40cm-50cm</option>
-            <option value="6">50cm-60cm</option>
-            <option value="7">more then 60cm</option>
-          </Form.Select>
-          <Form.Select aria-label="Default select example">
-            <option>Weight</option>
-            <option value="1">2kg-4kg</option>          
-            <option value="2">2kg-4kg</option>
-            <option value="3">4kg-6kg</option>
-            <option value="4">6kg-8kg</option>
-            <option value="5">8kg-10kg</option>
-            <option value="6">10kg-20kg</option>
-            <option value="7">20kg-30kg</option>
-            <option value="8">30kg-40kg</option>
-            <option value="9">more then 40kg</option>
-          </Form.Select>
+      <Offcanvas show={show} onHide={handleClose} backdrop="static">
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <Form>
+            <h5>Adoption Status</h5>
+            <Form.Check
+              reverse
+              label="Adopted"
+              name={"adopted"}
+              value={"adopted"}
+              onChange={(e) => handleAdoptStatus(e, "adopted")}
+            />
+            <Form.Check
+              reverse
+              label="Available"
+              value={"Available"}
+              onChange={(e) => handleAvailableStatus(e, "available")}
+            />
+            <Form.Check
+              reverse
+              label="Foster"
+              value={"Foster"}
+              onChange={(e) => handleFosterStatus(e, "foster")}
+            />
+            <h5>Type</h5>
+            <Form.Check
+              reverse
+              label="Dog"
+              value={"Dog"}
+              onChange={(e) => handleDog(e, "dog")}
+            />
+            <Form.Check
+              reverse
+              label="Cat"
+              value={"Cat"}
+              onChange={(e) => handleCat(e, "cat")}
+            />
+            <Form.Check
+              reverse
+              label="Other"
+              value={"Other"}
+              onChange={(e) => handleOther(e, "other")}
+            />
 
-
-        {/* create bootstrap range with two balls on one like and display minumun display maximum */}
-          <Form.Group className="mb-3" controlId="formBasicRange">
-            <Form.Label>Range</Form.Label>
-            <h5
-            >{value1}
-            </h5>
-
-            <Form.Control type="range" />
-
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicRange">
-            <Form.Label>Range</Form.Label>
-            <h5
-            >{value2}
-            </h5>
-            <Form.Control type="range" />
-          </Form.Group>
-          
-          <Form.Label >Name</Form.Label>
-        <Form.Control
-        type="text"
-        placeholder="Enter Name"
-      />
-
-
-
-            {/* <Button type="submit">Submit</Button> */}
-          {/* </fieldset> */}
-        </Form>
-    </div>
-  )
+            <DoubleRangeSlider
+              // maxValue={5}
+              // minValue={0}
+              // step={0.1}
+              // defaultValue={[2, 5]}
+              max={5}
+              min={0}
+              minValueBetween
+              // values={[2, 5]}
+              // onChange={(values) => console.log(values)}
+            />
+          </Form>
+        </Offcanvas.Body>
+      </Offcanvas>
+    </>
+  );
 }
-//all required fields
-
-// Type 
-// Name
-// Adoption Status (Adopted, Fostered, Available)
-// Picture (Picture location URL/Path)
-// Height (number)
-// Weight (Number)
-// Color
-// Bio
-// Hypoallergenic (Boolean)
-// Dietary restrictions
-// Breed
-
-
-//get requirments:
-// Adoption Status
-// Type
-// Height
-// Weight
-// Name

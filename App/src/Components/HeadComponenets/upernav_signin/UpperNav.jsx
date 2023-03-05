@@ -5,14 +5,13 @@ import logo from '../../.././assets/Photos/logo 03 standard.png'
 import { Between, Line, Rows,around } from '../../../assets/UiKit/Line/Line'
 import { Grid } from "../../../assets/UiKit/grid/Gird";
 import { AuthContext } from '../../../AuthContextProvider'
-import UserApi from '../../../functions/UserApi';
+import UserApi from '../../../Data/UserApi';
 
 
 
 export default function UpperNav() {
   const userApi= new UserApi();
   const {userData} = useContext(AuthContext)
-  console.log(userData);
   const navigate = useNavigate();
   const auth =false
   return (
@@ -29,7 +28,6 @@ export default function UpperNav() {
     <>
       <button className='nakedButton topNavButton ' onClick={() => navigate("/Profile")}>Profile</button>
       <button className='nakedButton topNavButton ' onClick={ () => {
-        console.log("logout")
         userApi.logout(); 
         }
       }>Logout</button>

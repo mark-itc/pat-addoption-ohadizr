@@ -38,6 +38,10 @@ module.exports = class UsersDAO {
       }
     );
   }
+  static async updateUsers(users) {
+    await collection.updateMany({}, { $set: users });
+  }
+
   static async getUserById(_id) {
     return await collection.findOne({ _id: new ObjectId(_id) });
   }

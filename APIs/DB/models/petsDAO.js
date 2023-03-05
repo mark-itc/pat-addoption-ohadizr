@@ -64,13 +64,36 @@ module.exports = class PetsDAO {
     // make filtered function that return all pets with the spacified info of the query with adoption_status, type, height, wight, color if the user did not spacify a value, do not filter by it
     static async getFilteredPets(query) {
         if (!collection) return;
-        return await collection
-        //find all results that match the query
-          .find({
-            adoption_Status: query.adoption_Status,
+        return await collection.find({
+            //map query and filter out the empty values, then find only pets that match the query
+            ...Object.keys(query).reduce((acc, key) => {
+              if (query[key]) {
+                acc[key] = query[key];
+              }
+              return acc;
+            }
+            , {})
+            
+
           })
           .toArray();
+          
       }
+      
 
+    static async updatePet(adopterId, petId, adoption_Status ){
+
+        if (!collection) return;
+        await collection.updateOne(
+            { _id: new ObjectId(petId) },
+            {
+              $set: {
+                adoption_Status: adoption_Status,
+                adopterId: adopterId
+
+              },
+            }
+          );
+    }
 
 };

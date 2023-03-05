@@ -134,9 +134,7 @@ module.exports = class PetsController {
 
         try {
             const filter = req.body;
-            console.log(filter);
             const pets = await PetsDAO.getFilteredPets(filter);
-            console.log(pets);
             res.json(pets);
         } catch (e) {
             console.log(`Error in ${e}`);
@@ -148,78 +146,123 @@ module.exports = class PetsController {
     }
     
     
-    // static async AdoptPet(req, res) {
+    static async AdoptPet(req, res) {
+        //find a pet by id and add the user id to the adopters array 
+        try {
+            if (pet) {
+                const petId = req.params.PetId;
+                const adopterId = req.body.userId;
+                const adoption_Status = req.body.status;
+                await PetsDAO.updatePet(adopterId, petId, adoption_Status );
+                res.json({
+                    success: true,
+                    message: "pet adopted successfully"
+                });
+            } else {
+                res.status(404).send("User not found");
+            }
 
-    //     try {
+        } catch (e) {
+            // console.log(`Error in petsController.CreatePet${e}`);
+            return res.status(500).json({
+                success: false,
+                message: 'unknown error'
+            });
+        }
+    }
+    static async ReturnPet(req, res) {
+        try {
+            if (pet) {
+                const petId = req.params.PetId;
+                const adopterId = req.body.userId;
+                const adoption_Status = req.body.status;
+                await PetsDAO.updatePet(adopterId, petId, adoption_Status );
+                res.json({
+                    success: true,
+                    message: "pet returned successfully"
+                });
+            } else {
+                res.status(404).send("User not found");
+            }
 
-    //     } catch (e) {
-    //         // console.log(`Error in petsController.CreatePet${e}`);
-    //         return res.status(500).json({
-    //             success: false,
-    //             message: 'unknown error'
-    //         });
-    //     }
-    // }
-    // static async ReturnPet(req, res) {
+        } catch (e) {
+            // console.log(`Error in petsController.CreatePet${e}`);
+            return res.status(500).json({
+                success: false,
+                message: 'unknown error'
+            });
+        }
+    }
+    static async SavePet(req, res) {
+        try {
+            if (pet) {
+                const petId = req.params.PetId;
+                const adopterId = req.body.userId;
+                await PetsDAO.savePet(adopterId, petId);
+                res.json({
+                    success: true,
+                    message: "pet saved successfully"
+                });
+            } else {
+                res.status(404).send("User not found");
+            }
 
-    //     try {
+        } catch (e) {
+            // console.log(`Error in petsController.CreatePet${e}`);
+            return res.status(500).json({
+                success: false,
+                message: 'unknown error'
+            });
+        }
+    }  
+    static async DeleteSavedPet(req, res) {
+         try {
+            if (pet) {
+                const petId = req.params.PetId;
+                const adopterId = req.body.userId;
+                await PetsDAO.deleteSavedPet(adopterId, petId);
+                res.json({
+                    success: true,
+                    message: "pet deleted successfully"
+                });
+            } else {
+                res.status(404).send("User not found");
+            }
 
-    //     } catch (e) {
-    //         // console.log(`Error in petsController.CreatePet${e}`);
-    //         return res.status(500).json({
-    //             success: false,
-    //             message: 'unknown error'
-    //         });
-    //     }
-    // }
-    // static async SavePet(req, res) {
+        } catch (e) {
+            return res.status(500).json({
+                success: false,
+                message: 'unknown error'
+            });
+        }
+    }
+    static async GetPetOwner(req, res) {
 
-    //     try {
+        try {
 
-    //     } catch (e) {
-    //         // console.log(`Error in petsController.CreatePet${e}`);
-    //         return res.status(500).json({
-    //             success: false,
-    //             message: 'unknown error'
-    //         });
-    //     }
-    // }  // static async DeleteSavedPet(req, res) {
+        } catch (e) {
+            return res.status(500).json({
+                success: false,
+                message: 'unknown error'
+            });
+        }
+    }
+    static async PetsList(req, res) {
 
-    //     try {
+        try {
 
-    //     } catch (e) {
-    //         return res.status(500).json({
-    //             success: false,
-    //             message: 'unknown error'
-    //         });
-    //     }
-    // }
-    // static async GetPetOwner(req, res) {
+            const pets = await PetsDAO.getUserPets(req.currentUser._id);
 
-    //     try {
+            return res.json({
+                list: pets
+            })
 
-    //     } catch (e) {
-    //         return res.status(500).json({
-    //             success: false,
-    //             message: 'unknown error'
-    //         });
-    //     }
-    // }
-    // static async PetsList(req, res) {
+        } catch (e) {
+            return res.status(500).json({
+                success: false,
+                message: 'unknown error'
+            });
+        }
+    }
 
-    //     try {
-
-    //         const pets = await PetsDAO.getUserPets(req.currentUser._id);
-
-    //         return res.json({
-    //             list: pets
-    //         })
-
-    //     } catch (e) {
-    //         return res.status(500).json({
-    //             success: false,
-    //             message: 'unknown error'
-    //         });
-    //     }
-    // }
 }

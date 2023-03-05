@@ -4,7 +4,7 @@ import {useState} from 'react'
 import '../assets/scss/Register.scss'
 import { Grid } from "../assets/UiKit/grid/Gird";
 import { Line,Rows } from "../assets/UiKit/Line/Line";
-import UserApi from '.././functions/UserApi'
+import UserApi from '.././Data/UserApi'
 
 export default function Register() {
     const navigate = useNavigate();
