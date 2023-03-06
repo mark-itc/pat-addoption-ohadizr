@@ -8,69 +8,90 @@ import UserAPI from ".././Data/UserApi";
 import { AuthContext } from ".././AuthContextProvider";
 import { useContext } from "react";
 import localforage from "localforage";
+import Loading from "../assets/UiKit/premade_componenets/loading/Loading";
 
 export default function Login() {
   const navigate = useNavigate();
   const [registerEmail, setEmail] = useState("");
   const [registerPassWord, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const { userData, setUserData } = useContext(AuthContext);
+  const { userData, setUserData,isLogged, setIsLogged,userDataStored } = useContext(AuthContext);
   const userApi = new UserAPI();
-
-  const [userId , setUserId] = useState("")
-  const [userToken , setUserToken] = useState("")
-  const [isLogged, setIsLogged] = useState(false)
+  const [loading, setLoading] = useState(false);
 
 
-//login get confirmation 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  async function checkToken(LogInToken) {
+    //take token from local storage and check if it is valid with token from login
     try {
-      const userLogIn = await userApi.login(registerEmail, registerPassWord);
-      console.log(userLogIn);
-      if (userLogIn.status === 200) {
-        console.log();
-        setUserId(userLogIn.user._id);
-        setUserToken(userLogIn.token);
-        setIsLogged(true)
+      const tokenFromStorage = await userApi.getToken();
+      if (tokenFromStorage.token === LogInToken) {
+        setIsLogged(true);
+        console.log("token stored is valid");
       }
     } catch (error) {
       console.log(error);
     }
   }
 
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const userLogIn = await userApi.login(registerEmail, registerPassWord);
 
-isLogged? userApi.setToken(userToken,userId) : console.log("not logged");
+      if (userLogIn.status === 200) {
+        await userApi.setToken(userLogIn.token,  userLogIn.user._id)
+        checkToken(userLogIn.token);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-if (isLogged===true) {
-  const userDataFromApi= async ()=>await userApi.getUserData(userId)
-  setUserData (userDataFromApi)
-  navigate("/home");
+if (userDataStored && isLogged) {
+  navigate("/");
 
 }
+
+
   
 
 
   return (
-    <div>
+    <div className="loginContainer">
       <h2>LogIn</h2>
       <Grid>
         <Rows>
           <form>
-            <label>Email</label>
-            <input
-              type="email"
-              value={registerEmail}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <label>Password</label>
-            <input
-              type="password"
-              value={registerPassWord}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button onClick={handleSubmit}>Submit</button>
-            <h5>{errorMessage}</h5>
+            <Line>
+              <label>Email</label>
+              <input
+                type="email"
+                value={registerEmail}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Line>
+
+            <Line>
+              <label>Password</label>
+              <input
+                type="password"
+                value={registerPassWord}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Line>
+            <Line></Line>
+            <Line>
+              <div>
+                <button className="nakedButton" onClick={handleSubmit}>
+                  Submit
+                </button>
+              </div>
+            </Line>
+            <Line>
+              <h5>{errorMessage}</h5>
+              {loading ? <Loading /> : null}
+            </Line>
           </form>
         </Rows>
       </Grid>

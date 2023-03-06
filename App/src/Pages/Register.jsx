@@ -84,12 +84,6 @@ export default function Register() {
 
         <p>{errorMessage}</p>
 
-        
-
-        
- 
-
-
         </Rows>
         </form> 
         </Grid>

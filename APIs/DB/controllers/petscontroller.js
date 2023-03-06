@@ -147,7 +147,6 @@ module.exports = class PetsController {
     
     
     static async AdoptPet(req, res) {
-        //find a pet by id and add the user id to the adopters array 
         try {
             if (pet) {
                 const petId = req.params.PetId;

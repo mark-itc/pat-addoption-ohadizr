@@ -12,6 +12,7 @@ module.exports = class UsersDAO {
       console.log(`Could not establish connection to users collection ${e}`);
     }
   }
+  
 
   static async createUser(userData) {
     userData.created_at = new Date();

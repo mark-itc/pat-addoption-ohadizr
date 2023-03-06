@@ -47,9 +47,6 @@ app.put('/user/:id', UsersController.UpdateUser)
 
 app.get('/user/:id/full', UsersController.GetUserFull)
 
-
-//pets Api
-
 app.get('/pets', PetsController.GetAllPets)
 
 app.post('/addPet', PetsController.CreateNewPet) //(Protected to admin only)

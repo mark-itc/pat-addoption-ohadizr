@@ -18,7 +18,8 @@ Accept: application/json
     "hypoallergenic": "true",
     "age": 9,
     "breed": "golden",
-    "dietary_restrictions": "no fish"
+    "dietary_restrictions": "no fish",
+    "owner": 1
   }
 
 ###

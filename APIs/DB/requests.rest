@@ -29,6 +29,10 @@ Content-Type: application/json
   }
  
 ###
+get http://localhost:8000/user/validate/64033c73b374207b7e32f7ac
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYS5jb20iLCJwYXNzd29yZCI6IjAzYWM2NzQyMTZmM2UxNWM3NjFlZTFhNWUyNTVmMDY3OTUzNjIzYzhiMzg4YjQ0NTllMTNmOTc4ZDdjODQ2ZjQiLCJpYXQiOjE2NzgxMjkxODR9.BAa9w6yihUAwYcEDmlczQ7h1pHZ0yMQDh0pHdYkYv9Y
+
+###
 get http://localhost:8000/user/64033c73b374207b7e32f7ac
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYS5jb20iLCJwYXNzd29yZCI6IjAzYWM2NzQyMTZmM2UxNWM3NjFlZTFhNWUyNTVmMDY3OTUzNjIzYzhiMzg4YjQ0NTllMTNmOTc4ZDdjODQ2ZjQiLCJpYXQiOjE2Nzc5NTA5MjR9.8_dhIiOsSvD3ixouuflF-x-ly8t6lhOX3Yy6-mapEU0
 

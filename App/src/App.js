@@ -14,8 +14,11 @@ import Login from './Pages/Login';
 import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from './AuthContextProvider';
 function App() {
-  const { userData } = useContext(AuthContext);
-
+  const { userDataStored, userData, setUserData,isLogged, setIsLogged } = useContext(AuthContext);
+  //listen to is logged and render if changed from true to false or false to true
+  useEffect(() => {
+    console.log("isLogged", isLogged);
+  }, [isLogged]);
 
 //console log "all the way button" when the user scrolls to the bottom of the page
   const [bottomOfPage, setBottomOfPage] = useState(false);
@@ -54,7 +57,7 @@ function App() {
         <Route path="ourmission" element={ <OurMission/>} />
         <Route path="adopt" element={ <Adopt/>} />
         <Route path="singup" element={ <Signup/>} />
-        {userData ? 
+        {userDataStored ? 
           <Route path="profile" element={ <Profile/>} />
          : 
         <>

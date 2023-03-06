@@ -159,7 +159,7 @@ state = {
     const { min, max, currentMin, inputMin, currentMax, inputMax, minValueBetween } = this.state;
     
     return (
-      <div className="card"> 
+      <div className="DoubleRangedcard"> 
                 <Line addClass={"around current-value"}>
           <label htmlFor="min-input">Min: </label>
   

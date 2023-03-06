@@ -45,7 +45,6 @@ module.exports = class UsersController {
   static async Login(req, res) {
     try {
       const validRequest = LoginValidation(req.body);
-      console.log("test");
       if (!validRequest) {
         return res.status(400).json({
           success: false,
@@ -60,8 +59,6 @@ module.exports = class UsersController {
           message: "Wrong username or password",
         });
       }
-
-      // await UsersDAO.getUserByEmail(req.body.email) // this is a test
 
       const accessToken = jwt.sign(
         {
@@ -85,6 +82,33 @@ module.exports = class UsersController {
       });
     }
   }
+  // static async ValidateUser(req, res) {
+  //   try {
+  //     const userId = req.params.id;
+  //     const user = await UsersDAO.getUserById(userId);
+  //     if (user) {
+  //       await UsersDAO.validateUser(userId);
+
+  //       return res.json({
+  //         success: true,
+  //         message: "User validated",
+  //       });
+  //     } else {
+  //       console.log("User validated");
+  //       return res.status(404).json({
+  //         success: false,
+  //         message: "User not found",
+  //       });
+  //     }
+  //   } catch (e) {
+  //     console.log(`Error in ${e}`);
+  //     return res.status(500).json({
+  //       success: false,
+  //       message: "unknown error",
+  //     });
+  //   }
+  // }
+  
 
   static async GetUserById(req, res) {
     try {
@@ -185,6 +209,7 @@ module.exports = class UsersController {
         const user = await UsersDAO.getUserById(id);
         if (user) {
             res.json({
+            status: 200,
             f_name: user.f_name,
             l_name: user.l_name,
             email: user.email,

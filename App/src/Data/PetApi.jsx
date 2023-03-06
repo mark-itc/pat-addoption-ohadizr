@@ -4,16 +4,16 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 class PetsApi extends React.Component {
-//   async getPetData() {
-//     const web = "http://localhost:8000/pets";
-//     try {
-//       const response = await fetch(web);
-//       const results = await response.json();
-//       return results;
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   } //tested and working
+  async getPetData() {
+    const web = "http://localhost:8000/pets";
+    try {
+      const response = await fetch(web);
+      const results = await response.json();
+      return results;
+    } catch (error) {
+      console.log(error);
+    }
+  } 
 
   async createPet(pet) {
     const web = "http://localhost:8000/pet";

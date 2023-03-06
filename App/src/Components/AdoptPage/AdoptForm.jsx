@@ -4,7 +4,17 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import DoubleRangeSlider from "../../assets/UiKit/premade_componenets/DoubleRangeSlider/DoubleRangeSlider";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import Door from '../.././assets/UiKit/premade_componenets/door/Door'
+import { useNavigate } from "react-router-dom";
+import { Grid } from "../../assets/UiKit/grid/Gird";
+import { Line, Rows } from "../../assets/UiKit/Line/Line";
+
+
+
+
+
 export default function AdoptForm(props) {
+  
   const [adoption_status, setAdoptionStatus] = useState(null);
   const [adopt, setAdopt] = useState(null);
   const [available, setAvailable] = useState(null);
@@ -19,17 +29,12 @@ export default function AdoptForm(props) {
   const [weight, setWeight] = useState(null);
   const [age, setAge] = useState(null);
 
-  //calback to parent
+ 
   setTimeout(() => {
     // props.onData(adoption_status, type, height, weight, age)
     props.onData([adoption_status, type]);
   }, 50000);
 
-  //side bar
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   //form functions
 
@@ -88,17 +93,19 @@ export default function AdoptForm(props) {
     setType([dog, cat, other].filter((item) => item !== null));
   }, [dog, cat, other]);
 
+  //side bar
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  
   return (
     <>
-      <Button variant="success" onClick={handleShow}>
-        Search
-      </Button>
+    <Grid>
+    <Rows>
+            <button className="standardButton" onClick={handleShow }>Show</button>
 
-      <Offcanvas show={show} onHide={handleClose} backdrop="static">
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
+            <Door show={show} onHide={handleClose}>
           <Form>
             <h5>Adoption Status</h5>
             <Form.Check
@@ -152,8 +159,9 @@ export default function AdoptForm(props) {
               // onChange={(values) => console.log(values)}
             />
           </Form>
-        </Offcanvas.Body>
-      </Offcanvas>
+        </Door>
+        </Rows>
+        </Grid>
     </>
   );
 }

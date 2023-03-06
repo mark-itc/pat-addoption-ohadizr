@@ -1,11 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import AdoptForm from ".././Components/AdoptPage/AdoptForm";
-import PetCardSearch from ".././Components/AdoptPage/PetCardSearch";
+// import PetCardSearch from ".././Components/AdoptPage/PetCardSearch";
 import  PetsApi from "../Data/PetApi";
 import "../assets/scss/Adopt.scss";
 import { Between, Line, Rows } from  '../assets/UiKit/Line/Line'
 import { Grid } from  "../assets/UiKit/grid/Gird";
+import Card from ".././assets/UiKit/premade_componenets/card/Card";
 // import { adoption_status, type, height, weight, age } from ".././Components/AdoptPage/AdoptForm";
 export default function Adopt() {
   const petApi = new PetsApi();
@@ -19,35 +20,36 @@ export default function Adopt() {
   }
   
 
-  useEffect(() => {
-    console.log(dataFromChild, "dataFromChild");
+
+    async function fetchData() {
+      const petData = await petApi.filtered(filter)
+      setPetArr(petData)
+
+    }
+
+    if (petArr.length === 0) {
+      fetchData();
+    }
+
+
+  const cardsList = petArr.map((pet) => {
+    console.log(pet, "pet");
+    return ( <Card pet={pet} />)
+  });
   
-
-
-    // setFilter(obj)
-    console.log(filter, "filter");
-
-
-    getPetData(filter)
-  }, [])
-  
-  
-
-const cardsList = petArr.map((pet) => {
-
-      return <PetCardSearch pet={pet} />
-    });
-  
-    //getting data from child
   const [dataFromChild, setDataFromChild] = useState([]);
   const handleDataFromChild = (data) => {
     setDataFromChild(data);
-    // console.log(data, "data");
+
   };
   
 
   return (
-    
+    <Grid>
+  <Line>
+
+
+
     <div className="adoptContainer">
       <div className="adoptHeader">
         <h1>Adopt a Pet</h1>
@@ -69,5 +71,7 @@ const cardsList = petArr.map((pet) => {
       </Line>
       </div>
     </div>
+    </Line>
+    </Grid>
   );
 }

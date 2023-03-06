@@ -1,6 +1,5 @@
-import { useEffect } from "react";
 import { useState } from "react";
-import { createContext } from "react";
+import { createContext ,useEffect } from "react";
 import localForage from "localforage";
 import UserApi from "./Data/UserApi";
 
@@ -8,52 +7,59 @@ const AuthContext = createContext();
 const userApi = new UserApi();
 function AuthContextProvider({ children }) {
   const [token, setToken] = useState("");
-  const [_id, setAuthId] = useState("");
   const [userData, setUserData] = useState();
+  const [isLogged, setIsLogged] = useState(false);
+  const [userDataStored, setUserDataStored] = useState(false);
 
-  // async function getUserDataById(_id) {
-  //   try {
-  //     const userData = await userApi.getUserById(_id);
-  //     setTimeout(() => {
-  //       setUserData(userData)  
-  //     }, 20000);
-  //     ;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  async function getUserData() {
+    const petApp = await localForage.getItem("petApp");
+    console.log("petApp", petApp._id);
+    // const userData = await userApi.getUserById(petApp._id, petApp.token);
+    if (userData.status === 200) {
+      console.log("200");
+    setUserData(userData);
+    setUserDataStored(true);
+    console.log("userDataStored", userDataStored);
+    }
+  }
 
-  // async function getFromLocalForge(token) {
-  //   try {
-  //     const petApp = await localForage.getItem("petApp");
+  async function validatePorcces(){
+    try {
+      const petApp = await localForage.getItem("petApp");
+      console.log("petApp", petApp._id);
+      const userData = await userApi.getUserById(petApp._id, petApp.token);
+      if (userData.status === 200) {
+        console.log("200");
+      setUserData(userData);
+      setIsLogged(true);
+      setUserDataStored(true);
+      console.log("userDataStored", userDataStored);
+      };
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  if (!isLogged && userDataStored) {
+    console.log("!isLogged && userDataStored");
+    validatePorcces()
+}
+  if (isLogged && !userDataStored) {
+    console.log("isLogged && !userDataStored");
+    getUserData();
+  }
 
-  //     if (petApp === null) {
-  //       return;
-  //     }
-
-      // setToken(petApp.token);
-      // setAuthId(petApp._id);
-//       if (petApp._id == null) {
-//         return;
-//       }
-//     } catch (error) {
-//       // console.log(error);
-//     }
-//   }
-// if (userData === null) {
-//    setInterval(() => {
-//     console.log({userData});
-
-//     getFromLocalForge(token);
-//     getUserDataById(_id, token)
-
-//  }, 1000);
-// }
-
+    if (!isLogged && !userDataStored) {
+      console.log("!isLogged && !userDataStored");
+      validatePorcces()
+    }  
 
   return (
-    <AuthContext.Provider value={{ userData, setUserData }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider
+      value={{ userDataStored, userData, setUserData, isLogged, setIsLogged }}
+    >
+      {children}
+    </AuthContext.Provider>
   );
 }
 
-export { AuthContext, AuthContextProvider};
+export { AuthContext, AuthContextProvider };

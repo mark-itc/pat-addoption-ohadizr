@@ -20,21 +20,21 @@ class UserApi extends React.Component {
     };
   }
 
-  async setToken(token, user) {
+  async setToken(token, _id) {
+    try {
+      await localforage.setItem("petApp", { token, _id });
+
+      return;
+    
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getToken() {
     try {
       const petApp = await localforage.getItem("petApp");
-
-      if (petApp !== null) {
-        await localforage.setItem("petApp", {
-          token: token,
-          _id: user._id,
-        });
-      } else {
-        await localforage.setItem("petApp", {
-          token: token,
-          _id: user._id,
-        });
-      }
+      return petApp;
     } catch (error) {
       console.log(error);
     }
@@ -76,40 +76,30 @@ class UserApi extends React.Component {
     }
   }
 
-  async  login(email, password) {
-    const url = 'http://localhost:8000/login/';
-  
+  async login(email, password) {
+    const url = "http://localhost:8000/login/";
+
     const body = JSON.stringify({ email, password });
-    const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' };
-  
+    const headers = {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    };
+
     try {
-      const response = await fetch(url, { method: 'POST', headers, body });
+      const response = await fetch(url, { method: "POST", headers, body });
       const data = await response.json();
       console.log(data);
       if (response.ok) {
-
-        return { user:data.user, token: data.token, status: response.status };
+        return { user: data.user, token: data.token, status: response.status };
       } else {
-        throw new Error(data.message || 'Login failed');
+        throw new Error(data.message || "Login failed");
       }
     } catch (error) {
       console.error(error);
-      throw new Error('Network error');
+      throw new Error("Network error");
     }
   }
-  
 
-  
-
-      // await this.saveOnLocalForge(data.token, data.user);
-      // return {
-      //   status: response.status,
-      //   data: data,
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
   async logout() {
     try {
       await localforage.removeItem("petApp");
@@ -117,11 +107,11 @@ class UserApi extends React.Component {
       console.log(error);
     }
   }
-  async getUserById(_id, token) {
-    const bearer =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYS5jb20iLCJwYXNzd29yZCI6IjAzYWM2NzQyMTZmM2UxNWM3NjFlZTFhNWUyNTVmMDY3OTUzNjIzYzhiMzg4YjQ0NTllMTNmOTc4ZDdjODQ2ZjQiLCJpYXQiOjE2NzgwMjQ1MDR9.sds8UlB5VsOKOSdr_jppB6qpyBloWgwpFe3dqHxFEzI";
-
-    const url = "http://localhost:8000/user/" + _id;
+  async getUserById() {
+    const user = await this.getToken();
+    const _id = user._id;
+    const bearer = user.token;
+    const url = `http://localhost:8000/user/${_id}`;
     try {
       const response = await fetch(url, {
         method: "GET",
@@ -133,7 +123,7 @@ class UserApi extends React.Component {
       return {
         status: response.status,
         data: result,
-      }
+      };
     } catch (error) {
       console.error(error);
     }
@@ -159,6 +149,26 @@ class UserApi extends React.Component {
       </div>
     );
   }
+  //make function that validate user id and token from forage with the api 
+  // async validateUser() {
+  //   const user = await this.getToken();
+  //   console.log(user.token);
+
+
+  //   const url = `http://localhost:8000/user/validate/${user._id}`;
+  //   const bearer = user.token;
+  //   const headers = {
+  //     Authorization: `Bearer ${bearer}`,
+  //   };
+  //   const response = await fetch(url, { method: "GET", headers });
+  //   const isValid = await response.json();
+
+  //   if (isValid.status === 200) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 }
 
 export default UserApi;
