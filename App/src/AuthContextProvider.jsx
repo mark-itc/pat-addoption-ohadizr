@@ -7,49 +7,48 @@ const AuthContext = createContext();
 const userApi = new UserApi();
 function AuthContextProvider({ children }) {
   const [token, setToken] = useState("");
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
   const [userDataStored, setUserDataStored] = useState(false);
 
   async function getUserData() {
     const petApp = await localForage.getItem("petApp");
-    console.log("petApp", petApp._id);
-    // const userData = await userApi.getUserById(petApp._id, petApp.token);
-    if (userData.status === 200) {
-      console.log("200");
+    const data = await userApi.getUserById(petApp._id, petApp.token);
+    
+    if (data.status === 200) {
     setUserData(userData);
     setUserDataStored(true);
-    console.log("userDataStored", userDataStored);
+
+
     }
   }
+  getUserData() 
 
   async function validatePorcces(){
     try {
       const petApp = await localForage.getItem("petApp");
-      console.log("petApp", petApp._id);
       const userData = await userApi.getUserById(petApp._id, petApp.token);
       if (userData.status === 200) {
-        console.log("200");
+
       setUserData(userData);
       setIsLogged(true);
       setUserDataStored(true);
-      console.log("userDataStored", userDataStored);
       };
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
   if (!isLogged && userDataStored) {
-    console.log("!isLogged && userDataStored");
+    // console.log("!isLogged && userDataStored");
     validatePorcces()
 }
   if (isLogged && !userDataStored) {
-    console.log("isLogged && !userDataStored");
+    // console.log("isLogged && !userDataStored");
     getUserData();
   }
 
     if (!isLogged && !userDataStored) {
-      console.log("!isLogged && !userDataStored");
+      // console.log("!isLogged && !userDataStored");
       validatePorcces()
     }  
 

@@ -48,8 +48,10 @@ class UserApi extends React.Component {
     password_validate,
     phone_num,
     bio
-  ) {
+  )
+   {
     try {
+      
       const response = await fetch("http://localhost:8000/signup", {
         method: "POST",
         headers: {

@@ -2,13 +2,13 @@
 get http://localhost:8000/pets
 
 ###
-post http://localhost:8000/pet
+post http://localhost:8000/addPet
 Content-Type: application/json
 Accept: application/json
 
   {
     "type": "Dog",
-    "name": "Shadow",
+    "name": "testForTest",
     "adoption_status": "Available",
     "picture": "https://images.squarespace-cdn.com/content/5c52811f1137a633536d811e/1588448958214-MUJZVHNJ7FXYLPXHSMWO/Homeward+Bound+Shadow.jpg?format=1500w&content-type=image%2Fjpeg",
     "height": "40cm",
@@ -19,9 +19,20 @@ Accept: application/json
     "age": 9,
     "breed": "golden",
     "dietary_restrictions": "no fish",
-    "owner": 1
+    "owner": "64033c73b374207b7e32f7ac"
   }
 
+###
+
+post http://localhost:8000/login
+Content-Type: application/json
+
+  {
+    "email": "a@a.com",
+    "password": "1234"
+  }
+###
+get http://localhost:8000/pet/user/64033c73b374207b7e32f7ac
 ###
 get http://localhost:8000/pets
 ###
@@ -43,11 +54,15 @@ Content-Type: application/json
 }
 
 ###
-get http://localhost:8000/pet
+post http://localhost:8000/pet
 Content-Type: application/json
 
 {
-"type": "dog"
+  "weight": {
+    "min": 0,
+    "max": 10
+  },
+  "type": ["dog", "cat"]
 }
 ###
 post http://localhost:8000/pet/ :id/adopt
@@ -58,6 +73,4 @@ post http://localhost:8000/pet/:id/save
 ###
 delete http://localhost:8000/pet/ :id/save
 ###
-get http://localhost:8000/pet/user/ :id
-
 

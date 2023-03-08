@@ -27,10 +27,9 @@ module.exports.AuthMiddleware = async function AuthMiddleware(req, res, next) {
         }
 
         req.currentUser = userData;
-        console.log('User data found');
         next();
     } catch (e) {
-        // console.log(e);
+        console.log(e);
         return res.status(500).send();
     }
 }

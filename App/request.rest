@@ -24,7 +24,8 @@ post http://localhost:8000/pet
 Content-Type: application/json
 
 {
-"type":"cat"
+"type":["dog","cat"]
+
 }
 ###
 get http://localhost:8000/user/validate/64033c73b374207b7e32f7ac

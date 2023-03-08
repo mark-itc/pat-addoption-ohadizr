@@ -1,167 +1,139 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
+import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import DoubleRangeSlider from "../../assets/UiKit/premade_componenets/DoubleRangeSlider/DoubleRangeSlider";
-import Offcanvas from "react-bootstrap/Offcanvas";
-import Door from '../.././assets/UiKit/premade_componenets/door/Door'
-import { useNavigate } from "react-router-dom";
 import { Grid } from "../../assets/UiKit/grid/Gird";
-import { Line, Rows } from "../../assets/UiKit/Line/Line";
-
-
-
-
+import { Rows } from "../../assets/UiKit/Line/Line";
 
 export default function AdoptForm(props) {
-  
-  const [adoption_status, setAdoptionStatus] = useState(null);
-  const [adopt, setAdopt] = useState(null);
-  const [available, setAvailable] = useState(null);
-  const [foster, setFoster] = useState(null);
-
-  const [type, setType] = useState(null);
-  const [dog, setDog] = useState(null);
-  const [cat, setCat] = useState(null);
-  const [other, setOther] = useState(null);
-
+  const [adoption_status, setAdoptionStatus] = useState([]);
+  const [type, setType] = useState([]);
   const [height, setHeight] = useState(null);
   const [weight, setWeight] = useState(null);
   const [age, setAge] = useState(null);
-
- 
-  setTimeout(() => {
-    // props.onData(adoption_status, type, height, weight, age)
-    props.onData([adoption_status, type]);
-  }, 50000);
-
-
-  //form functions
+  useEffect(() => {
+    props.onData({
+      adoption_status: adoption_status,
+      type: type,
+      height: height,
+      weight: weight,
+      age: age,
+    });
+  }, [adoption_status, type, height, weight, age]);
 
   const handleAdoptStatus = (e) => {
     if (e.target.checked) {
-      setAdopt(e.target.value);
+      setAdoptionStatus([...adoption_status, e.target.value]);
     } else {
-      setAdopt(null);
-    }
-  };
-  const handleAvailableStatus = (e) => {
-    if (e.target.checked) {
-      setAvailable(e.target.value);
-    } else {
-      setAvailable(null);
-    }
-  };
-  const handleFosterStatus = (e) => {
-    if (e.target.checked) {
-      setFoster(e.target.value);
-    } else {
-      setFoster(null);
-    }
-  };
-  useEffect(() => {
-    setAdoptionStatus(
-      [adopt, available, foster].filter((item) => item !== null)
-    );
-  }, [adopt, available, foster]);
-
-  //type
-  const handleDog = (e) => {
-    if (e.target.checked) {
-      setDog(e.target.value);
-    } else {
-      setDog(null);
-    }
-  };
-  const handleCat = (e) => {
-    if (e.target.checked) {
-      setCat(e.target.value);
-    } else {
-      setCat(null);
+      setAdoptionStatus(
+        adoption_status.filter((item) => item !== e.target.value)
+      );
     }
   };
 
-  const handleOther = (e) => {
+  const handleType = (e) => {
     if (e.target.checked) {
-      setOther(e.target.value);
+      setType([...type, e.target.value]);
     } else {
-      setOther(null);
+      setType(type.filter((item) => item !== e.target.value));
     }
   };
 
-  useEffect(() => {
-    setType([dog, cat, other].filter((item) => item !== null));
-  }, [dog, cat, other]);
+//get with child function componentDidUpdate the min and max values for age height and weight
+  const handleAge = (value) => {
+    setAge(value);
+  };
+  const handleHeight = (value) => {
+    setHeight(value);
+  };
+  const handleWeight = (value) => {
+    setWeight(value);
+  };
 
-  //side bar
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
-  
+
+
+
+
+
   return (
     <>
-    <Grid>
-    <Rows>
-            <button className="standardButton" onClick={handleShow }>Show</button>
-
-            <Door show={show} onHide={handleClose}>
+      <Grid>
+        <Rows>
           <Form>
             <h5>Adoption Status</h5>
             <Form.Check
               reverse
               label="Adopted"
-              name={"adopted"}
-              value={"adopted"}
-              onChange={(e) => handleAdoptStatus(e, "adopted")}
+              name="adoption_status"
+              value="adopted"
+              onChange={handleAdoptStatus}
             />
             <Form.Check
               reverse
               label="Available"
-              value={"Available"}
-              onChange={(e) => handleAvailableStatus(e, "available")}
+              name="adoption_status"
+              value="available"
+              onChange={handleAdoptStatus}
             />
             <Form.Check
               reverse
               label="Foster"
-              value={"Foster"}
-              onChange={(e) => handleFosterStatus(e, "foster")}
+              name="adoption_status"
+              value="foster"
+              onChange={handleAdoptStatus}
             />
             <h5>Type</h5>
             <Form.Check
               reverse
               label="Dog"
-              value={"Dog"}
-              onChange={(e) => handleDog(e, "dog")}
+              name="type"
+              value="dog"
+              onChange={handleType}
             />
             <Form.Check
               reverse
               label="Cat"
-              value={"Cat"}
-              onChange={(e) => handleCat(e, "cat")}
+              name="type"
+              value="cat"
+              onChange={handleType}
             />
             <Form.Check
               reverse
               label="Other"
-              value={"Other"}
-              onChange={(e) => handleOther(e, "other")}
+              name="type"
+              value="other"
+              onChange={handleType}
             />
 
             <DoubleRangeSlider
-              // maxValue={5}
-              // minValue={0}
-              // step={0.1}
-              // defaultValue={[2, 5]}
-              max={5}
+              max={60}
               min={0}
               minValueBetween
-              // values={[2, 5]}
-              // onChange={(values) => console.log(values)}
+              onChange={(value) => setHeight(value)}
+              title="Height"
+            />
+            <DoubleRangeSlider
+              max={70}
+              min={0}
+              minValueBetween
+              onChange={(value) => setWeight(value)}
+              title="Weight"
+            />
+            <DoubleRangeSlider
+              max={20}
+              min={0}
+              inputMax
+              inputMin
+              minValueBetween
+              onChange={(inputMin) => {
+                // handleAge(value);
+               console.log(inputMin)
+                }
+              }
             />
           </Form>
-        </Door>
         </Rows>
-        </Grid>
+      </Grid>
     </>
   );
 }

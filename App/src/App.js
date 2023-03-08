@@ -56,8 +56,9 @@ function App() {
         <Route path="contact" element={ <Contact/>} />
         <Route path="ourmission" element={ <OurMission/>} />
         <Route path="adopt" element={ <Adopt/>} />
-        <Route path="singup" element={ <Signup/>} />
-        {userDataStored ? 
+        {/* <Route path="singup" element={ <Signup/>} /> */}
+        {/* <Route path="profile" element={ <Profile/>} /> */}
+        {isLogged ? 
           <Route path="profile" element={ <Profile/>} />
          : 
         <>
@@ -71,9 +72,9 @@ function App() {
       </Routes>
   </div>
   
- <div className='footerApp'>
+ {/* <div className='footerApp'> */}
  {bottomOfPage ? <Footer/>: null}
- </div>
+ {/* </div> */}
  </div>
   </>
   );

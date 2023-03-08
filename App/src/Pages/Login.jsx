@@ -30,6 +30,10 @@ export default function Login() {
       }
     } catch (error) {
       console.log(error);
+      setErrorMessage(error.message);
+    } finally {
+      setLoading(false);
+
     }
   }
 
@@ -42,16 +46,21 @@ export default function Login() {
       if (userLogIn.status === 200) {
         await userApi.setToken(userLogIn.token,  userLogIn.user._id)
         checkToken(userLogIn.token);
+        setLoading(false);
+        return
       }
     } catch (error) {
       console.log(error);
+      setErrorMessage(error.message);
+    } finally {
+      setLoading(false);
     }
   }
 
-if (userDataStored && isLogged) {
+if (isLogged === true ) {
   navigate("/");
-
 }
+
 
 
   

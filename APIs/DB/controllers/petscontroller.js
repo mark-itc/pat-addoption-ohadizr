@@ -6,14 +6,6 @@ module.exports = class PetsController {
 
     static async CreateNewPet(req, res) {
         try {
-            const validRequest = NewPetValidation(req.body);
-            if (!validRequest) {
-                return res.status(400).json({
-                    success: false,
-                    message: 'Please fill all fields'
-                })
-            }
-
             const petObject = req.body;
             
             await PetsDAO.createPet(petObject)
@@ -130,22 +122,33 @@ module.exports = class PetsController {
         }
     }
     
-    static async GetFilteredPets(req, res) {
+    // static async GetFilteredPets(req, res) {
 
+    //     try {
+    //         const filter = req.body;
+    //         const pets = await PetsDAO.getFilteredPets(filter);
+    //         res.json(pets);
+    //     } catch (e) {
+    //         console.log(`Error in ${e}`);
+    //         return res.status(500).json({
+    //             success: false,
+    //             message: 'unknown error'
+    //         });
+    //     }
+    // }
+    static async GetFilteredPets(req, res) {
         try {
-            const filter = req.body;
-            const pets = await PetsDAO.getFilteredPets(filter);
-            res.json(pets);
+          const filter = req.body;
+          const pets = await PetsDAO.getFilteredPets(filter);
+          res.json(pets);
         } catch (e) {
-            console.log(`Error in ${e}`);
-            return res.status(500).json({
-                success: false,
-                message: 'unknown error'
-            });
+          console.log(`Error in ${e}`);
+          return res.status(500).json({
+            success: false,
+            message: 'unknown error'
+          });
         }
-    }
-    
-    
+      }
     static async AdoptPet(req, res) {
         try {
             if (pet) {
@@ -236,16 +239,24 @@ module.exports = class PetsController {
         }
     }
     static async GetPetOwner(req, res) {
-
-        try {
+        
+        const userId = req.params.id;
+        const filter = { owner: userId };
+            const owner = await PetsDAO.getFilteredPets(filter);
+            res.json({
+                success: true,
+                message: "pet owner returned successfully",
+                owner: owner
+            });
 
         } catch (e) {
+            console.log(`Error in petsController.CreatePet${e}`)
             return res.status(500).json({
                 success: false,
                 message: 'unknown error'
             });
         }
-    }
+    
     static async PetsList(req, res) {
 
         try {

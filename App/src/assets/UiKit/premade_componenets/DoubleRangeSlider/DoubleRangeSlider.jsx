@@ -1,8 +1,28 @@
 import React from 'react';
 import './DoubleRangeSlider.scss'
 import {Line,Rows} from '../../Line/Line'
+import {Grid} from '../../grid/Gird'
+import { useEffect } from 'react';
 
 class DoubleRangeSlider extends React.Component {
+  constructor(props) {
+    super(props);
+    this.slider = React.createRef();
+    this.minValue = React.createRef();
+    this.maxValue = React.createRef();
+    this.minInput = React.createRef();
+    this.maxInput = React.createRef();
+    this.minHandle = React.createRef();
+    this.maxHandle = React.createRef();
+    this.min = this.props.min || 0;
+    this.max = this.props.max || 200;
+    this.minValueBetween = this.props.minValueBetween || 10;
+    this.currentMin = this.props.min;
+    this.currentMax = this.props.max -1;
+    this.inputMin = this.props.min;
+  }
+
+  
 state = {
     sliderWidth: 0,
     offsetSliderWidht: 0,
@@ -66,6 +86,8 @@ state = {
     console.log(e.pageX, e.clientX, offsetSliderWidht);
     
     console.log(currentMin , (currentMax-minValueBetween));
+    console.log(currentMax)
+    console.log(minValueBetween);;
     
     console.log((max * dragedWidhtInPercent)/100);
  

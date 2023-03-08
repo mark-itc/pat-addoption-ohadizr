@@ -82,48 +82,26 @@ module.exports = class UsersController {
       });
     }
   }
-  // static async ValidateUser(req, res) {
-  //   try {
-  //     const userId = req.params.id;
-  //     const user = await UsersDAO.getUserById(userId);
-  //     if (user) {
-  //       await UsersDAO.validateUser(userId);
 
-  //       return res.json({
-  //         success: true,
-  //         message: "User validated",
-  //       });
-  //     } else {
-  //       console.log("User validated");
-  //       return res.status(404).json({
-  //         success: false,
-  //         message: "User not found",
-  //       });
-  //     }
-  //   } catch (e) {
-  //     console.log(`Error in ${e}`);
-  //     return res.status(500).json({
-  //       success: false,
-  //       message: "unknown error",
-  //     });
-  //   }
-  // }
-  
 
   static async GetUserById(req, res) {
     try {
       const id = req.params.id;
       const user = await UsersDAO.getUserById(id);
+
       if (user) {
         res.json({
           f_name: user.f_name,
           l_name: user.l_name,
           email: user.email,
+          phone: user.phone,
+          id:id,
         });
       } else {
         res.status(404).send("User not found");
       }
     } catch (e) {
+      console.log(" user by id test")
       console.log(`Error in ${e}`);
       return res.status(500).json({
         success: false,

@@ -1,19 +1,31 @@
 import React, { useEffect, useState } from "react";
+import { AuthContext } from "../../AuthContextProvider";
+import { useContext } from "react";
+import PetsApi from "../.././Data/PetApi";
 
 export default function AddPet() {
+  const petApi = new PetsApi();
 
-    const [formData, setFormData] = useState({
-      type: "",
-      name: "",
-      height: "",
-      weight: "",
-      color: "",
-      bio: "",
-      age: "",
-      hypoallergenic: false,
-      dietary_restrictions: "",
-      breed: "",
-    });
+  
+  const { userData } = useContext(AuthContext);
+
+  const [formData, setFormData] = useState({
+    type: "",
+    name: "",
+    height: "",
+    weight: "",
+    color: "",
+    bio: "",
+    age: "",
+    hypoallergenic: false,
+    dietary_restrictions: "",
+    breed: "",
+    adoption_status: "",
+    owner: "",
+  });
+
+
+  
     
 
     const handleSubmit = (event) => {
@@ -29,8 +41,31 @@ export default function AddPet() {
         hypoallergenic: false,
         dietary_restrictions: "",
         breed: "",
-      });
+        adoption_status: "",
+        owner: "",
+      })
+      sendFromDataToApi(formData);
     };
+
+    function sendFromDataToApi() {
+      petApi.addPet(formData,userData.id);
+      setFormData({
+        type: "",
+        name: "",
+        height: "",
+        weight: "",
+        color: "",
+        bio: "",
+        age: "",
+        hypoallergenic: false,
+        dietary_restrictions: "",
+        breed: "",
+        adoption_status: "",
+        owner: "",
+      })
+
+    }
+    
     useEffect(() => {
       // console.log(formData);
     }, []);
@@ -62,6 +97,20 @@ export default function AddPet() {
             onChange={handleInputChange}
           />
         </div>
+        <div className="formLine">
+    <label htmlFor="adoption_status">Adoption status:</label>
+    <select
+      name="adoption_status"
+      value={formData.adoption_status}
+      onChange={handleInputChange}
+      required
+    >
+      <option value="adopted">Adopted</option>
+      <option value="available">Available</option>
+      <option value="foster">Foster</option>
+    </select>
+  </div>
+        
         <div className="formLine">
           <label htmlFor="height">Height:</label>
           <input
